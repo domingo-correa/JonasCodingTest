@@ -36,13 +36,13 @@ namespace WebApi.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody] Company company)
         {
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id:int}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] Company company)
         {
         }
 
