@@ -29,7 +29,7 @@ namespace BusinessLayer.Services
             return _mapper.Map<CompanyInfo>(result);
         }
 
-        public AddCompany(CompanyInfo addCompany)
+        public async Task AddCompany(CompanyInfo addCompany)
         {
             
         }
