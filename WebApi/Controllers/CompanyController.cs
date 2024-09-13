@@ -52,7 +52,7 @@ namespace WebApi.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id:int}")]
-        public async Task Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _companyService.DeleteCompany(id);
             return Ok(new { message = $"Company successfully deleted" });
