@@ -19,6 +19,7 @@ namespace WebApi.Controllers
         }
         
         // GET api/<controller>
+        [HttpGet]
         public IEnumerable<CompanyDto> GetAll()
         {
             var items = _companyService.GetAllCompanies();
