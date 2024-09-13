@@ -4,9 +4,7 @@ using System.Web.Http;
 using AutoMapper;
 using BusinessLayer.Model.Interfaces;
 using WebApi.Models;
-using Prog12_Logging.Core;  
-using Prog12_Logging.IRepository;  
-using Prog12_Logging.Model;
+using Microsoft.Extensions.Logging;
 
 namespace WebApi.Controllers
 {
