@@ -43,10 +43,10 @@ namespace BusinessLayer.Services
 
         public async Task DeleteCompany(int id) 
         {
-            var company = await _context.Todos.FindAsync(id);
+            var company = await _companyRepository.Company.FindAsync(id);
             if(company != null)
             {
-                _context.company.Remove(company);
+                _companyRepository.company.Remove(company);
                  await _context.SaveChangesAsync();         
             }
             else
