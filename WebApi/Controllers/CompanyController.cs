@@ -44,7 +44,7 @@ namespace WebApi.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id:int}")]
-        public void Put(int id, [FromBody] Company company)
+        public async Task<IActionResult> Put(int id, [FromBody] Company company)
         {
             await _companyService.AddCompany(company);
             return Ok(new { message = "Company successfully updated" });
@@ -52,8 +52,10 @@ namespace WebApi.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id:int}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _companyService.DeleteCompany(id);
+            return Ok(new { message = $"Company successfully deleted" });
         }
     }
 }
