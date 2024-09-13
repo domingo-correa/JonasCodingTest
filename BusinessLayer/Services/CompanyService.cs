@@ -16,6 +16,7 @@ namespace BusinessLayer.Services
             _companyRepository = companyRepository;
             _mapper = mapper;
         }
+        
         public IEnumerable<CompanyInfo> GetAllCompanies()
         {
             var res = _companyRepository.GetAll();
@@ -26,6 +27,11 @@ namespace BusinessLayer.Services
         {
             var result = _companyRepository.GetByCode(companyCode);
             return _mapper.Map<CompanyInfo>(result);
+        }
+
+        public AddCompany(CompanyInfo addCompany)
+        {
+            
         }
     }
 }
