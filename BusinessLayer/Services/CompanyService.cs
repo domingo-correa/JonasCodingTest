@@ -34,5 +34,11 @@ namespace BusinessLayer.Services
             _companyRepository.SaveCompany(addCompany);
             await _companyRepository.SaveChangesAsync();
         }
+
+        public async Task UpdateCompany(CompanyInfo addCompany)
+        {
+            _companyRepository.SaveCompany(addCompany);
+            await _companyRepository.SaveChangesAsync();
+        }
     }
 }
