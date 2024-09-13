@@ -31,7 +31,8 @@ namespace BusinessLayer.Services
 
         public async Task AddCompany(CompanyInfo addCompany)
         {
-            
+            _companyRepository.SaveCompany(addCompany);
+            await _companyRepository.SaveChangesAsync();
         }
     }
 }
