@@ -27,6 +27,7 @@ namespace WebApi.Controllers
         }
 
         // GET api/<controller>/5
+        [HttpGet("{companyCode:string}")]
         public CompanyDto Get(string companyCode)
         {
             var item = _companyService.GetCompanyByCode(companyCode);
@@ -34,16 +35,19 @@ namespace WebApi.Controllers
         }
 
         // POST api/<controller>
+        [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
         // PUT api/<controller>/5
+        [HttpPut("{id:int}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE api/<controller>/5
+        [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
         }
