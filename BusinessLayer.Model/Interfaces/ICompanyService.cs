@@ -7,8 +7,8 @@ namespace BusinessLayer.Model.Interfaces
     {
         Task<IEnumerable<CompanyInfo>> GetAllCompanies();
         Task<CompanyInfo?> GetCompanyByCode(string companyCode);
-        Task<CompanyInfo> AddCompany(CompanyInfo addCompany);
-        Task<CompanyInfo> UpdateCompany(int id, CompanyInfo updateCompany);
-        Task<bool> DeleteCompany(int id);
+        Task AddCompany(CompanyInfo addCompany);
+        Task UpdateCompany(int id, CompanyInfo updateCompany);
+        Task DeleteCompany(int id);
     }
 }
