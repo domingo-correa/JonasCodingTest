@@ -39,13 +39,15 @@ namespace WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] Company company)
         {
             await _companyService.AddCompany(company);
-            return Ok(new { message = "Blog post successfully created" });
+            return Ok(new { message = "Company successfully created" });
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id:int}")]
         public void Put(int id, [FromBody] Company company)
         {
+            await _companyService.AddCompany(company);
+            return Ok(new { message = "Company successfully updated" });
         }
 
         // DELETE api/<controller>/5
