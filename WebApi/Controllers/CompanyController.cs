@@ -36,8 +36,10 @@ namespace WebApi.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody] Company company)
+        public async Task<IActionResult> Post([FromBody] Company company)
         {
+            await _companyService.AddCompany(company);
+            return Ok(new { message = "Blog post successfully created" });
         }
 
         // PUT api/<controller>/5
