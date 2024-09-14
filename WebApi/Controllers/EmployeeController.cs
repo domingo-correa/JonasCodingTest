@@ -9,71 +9,71 @@ namespace WebApi.Controllers
 {
     public class EmployeeController : ApiController
     {
-        private readonly ICompanyService _companyService;
+        private readonly IEmployeeService _employeeService;
         private readonly IMapper _mapper;
 
-        public CompanyController(ICompanyService companyService, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
         {
-            _companyService = companyService;
+            _employeeService = employeeService;
             _mapper = mapper;
         }
         
         // GET api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<CompanyDto>> GetAll()
+        public async Task<IEnumerable<EmployeeDto>> GetAll()
         {
-            var items = _companyService.GetAllCompanies();
-            return _mapper.Map<IEnumerable<CompanyDto>>(items);
+            var items = _employeeService.GetAllCompanies();
+            return _mapper.Map<IEnumerable<EmployeeDto>>(items);
         }
 
         // GET api/<controller>/5
-        [HttpGet("{companyCode:string}")]
-        public CompanyDto Get(string companyCode)
+        [HttpGet("{employeeCode:string}")]
+        public EmployeeDto Get(string employeeCode)
         {
-            var item = _companyService.GetCompanyByCode(companyCode);
-            return _mapper.Map<CompanyDto>(item);
+            var item = _employeeService.GetEmployeeByCode(employeeCode);
+            return _mapper.Map<EmployeeDto>(item);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody] Company company)
+        public void Post([FromBody] Employee employee)
         {
             if (employee == null)
                 return BadRequest();
 
-            var createdCompany = await _companyService.AddCompany(company);
+            var createdEmployee = await _employeeService.AddEmployee(employee);
 
             return CreatedAtAction(nameof(Get),
-                new { companyCode = createdCompany.companyCode }, createdCompany);
+                new { employeeCode = createdEmployee.employeeCode }, createdEmployee);
         }
 
         // PUT api/<controller>/5
         [HttpPut"{id:int}"]
-        public void Put(int id, [FromBody] Company company)
+        public void Put(int id, [FromBody] Employee employee)
         {
-            if (id != company.companyCode)
-                return BadRequest("Company code not found");
+            if (id != employee.employeeCode)
+                return BadRequest("Employee code not found");
 
-            var companyToUpdate = await _companyService.GetCompany(id);
+            var employeeToUpdate = await _employeeService.GetEmployee(id);
 
-            if (companyToUpdate == null)
-                return NotFound($"Company code = {id} not found");
+            if (employeeToUpdate == null)
+                return NotFound($"Employee code = {id} not found");
 
-            return await _companyService.UpdateCompany(company);
+            return await _employeeService.UpdateEmployee(employee);
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            var companyToDelete = await _companyService.GetCompany(id);
+            var employeeToDelete = await _employeeService.GetEmployee(id);
 
-            if (companyToDelete == null)
+            if (employeeToDelete == null)
             {
-                return NotFound($"Company with Id = {id} not found");
+                return NotFound($"Employee with Id = {id} not found");
             }
 
-            return await _companyService.DeleteCompany(id);
+            return await _employeeService.DeleteEmployee(id);
         }
     }
 }
