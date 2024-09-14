@@ -4,6 +4,7 @@ using System.Web.Http;
 using AutoMapper;
 using BusinessLayer.Model.Interfaces;
 using WebApi.Models;
+using Microsoft.Extensions.Logging;
 
 namespace WebApi.Controllers
 {
@@ -11,11 +12,13 @@ namespace WebApi.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IMapper mapper, ILogger<EmployeeController)
         {
             _employeeService = employeeService;
             _mapper = mapper;
+            _logger = logger;
         }
         
         // GET api/<controller>
