@@ -22,58 +22,103 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<CompanyDto>> GetAll()
         {
-            var items = _companyService.GetAllCompanies();
-            return _mapper.Map<IEnumerable<CompanyDto>>(items);
+            try
+                {
+                    var items = _companyService.GetAllCompanies();
+                    return _mapper.Map<IEnumerable<CompanyDto>>(items);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while listing all companies. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // GET api/<controller>/5
         [HttpGet("{companyCode:string}")]
         public CompanyDto Get(string companyCode)
         {
-            var item = _companyService.GetCompanyByCode(companyCode);
-            return _mapper.Map<CompanyDto>(item);
+            try
+                {
+                    var item = _companyService.GetCompanyByCode(companyCode);
+                    return _mapper.Map<CompanyDto>(item);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while retrieving " + companyCode + " company. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody] Company company)
         {
-            if (employee == null)
-                return BadRequest();
-
-            var createdCompany = await _companyService.AddCompany(company);
-
-            return CreatedAtAction(nameof(Get),
-                new { companyCode = createdCompany.companyCode }, createdCompany);
+            try
+                {
+                    if (employee == null)
+                        return BadRequest();
+        
+                    var createdCompany = await _companyService.AddCompany(company);
+        
+                    return CreatedAtAction(nameof(Get),
+                        new { companyCode = createdCompany.companyCode }, createdCompany);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while creating a company. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // PUT api/<controller>/5
         [HttpPut"{id:int}"]
         public void Put(int id, [FromBody] Company company)
         {
-            if (id != company.companyCode)
-                return BadRequest("Company code not found");
-
-            var companyToUpdate = await _companyService.GetCompany(id);
-
-            if (companyToUpdate == null)
-                return NotFound($"Company code = {id} not found");
-
-            return await _companyService.UpdateCompany(company);
+            try
+                {
+                    if (id != company.companyCode)
+                        return BadRequest("Company code not found");
+        
+                    var companyToUpdate = await _companyService.GetCompany(id);
+        
+                    if (companyToUpdate == null)
+                        return NotFound($"Company code = {id} not found");
+        
+                    return await _companyService.UpdateCompany(company);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while updating company id: + id + ". " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            var companyToDelete = await _companyService.GetCompany(id);
-
-            if (companyToDelete == null)
+            try
+                {
+                    var companyToDelete = await _companyService.GetCompany(id);
+        
+                    if (companyToDelete == null)
+                    {
+                        return NotFound($"Company with Id = {id} not found");
+                    }
+        
+                    return await _companyService.DeleteCompany(id);
+                }
+                }
+            catch (Exception ex)
             {
-                return NotFound($"Company with Id = {id} not found");
-            }
-
-            return await _companyService.DeleteCompany(id);
-        }
+                var msg = "An error occurred while deleting company id: + id + ". " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
     }
 }
