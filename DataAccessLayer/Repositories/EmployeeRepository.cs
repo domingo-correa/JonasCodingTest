@@ -38,7 +38,7 @@ namespace DataAccessLayer.Repositories
 		itemRepo.EmployeeStatus = employee.EmployeeStatus,
 		itemRepo.EmailAddress = employee.EmailAddress,
 		itemRepo.PhoneNumber = employee.PhoneNumber,
-		itemRepo.LastModifiedDateTime = employee.LastModifiedDateTime
+		itemRepo.LastModifiedDateTime = employee.LastModified
                 return _companyDbWrapper.Update(itemRepo);
             }
 
