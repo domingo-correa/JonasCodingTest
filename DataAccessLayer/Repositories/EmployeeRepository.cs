@@ -7,11 +7,11 @@ namespace DataAccessLayer.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-	    private readonly IDbWrapper<Employee> _employeeDbWrapper;
+	private readonly IDbWrapper<Employee> _employeeDbWrapper;
 
-	    public EmployeeRepository(IDbWrapper<Employee> employeeDbWrapper)
-	    {
-		    _employeeDbWrapper = employeeDbWrapper;
+	public EmployeeRepository(IDbWrapper<Employee> employeeDbWrapper)
+	{
+ 	    _employeeDbWrapper = employeeDbWrapper;
         }
 
         public IEnumerable<Employee> GetAll()
