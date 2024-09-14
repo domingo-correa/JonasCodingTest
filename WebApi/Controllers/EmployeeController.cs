@@ -22,58 +22,103 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<EmployeeDto>> GetAll()
         {
-            var items = _employeeService.GetAllEmployees();
-            return _mapper.Map<IEnumerable<EmployeeDto>>(items);
+            try
+                {
+                    var items = _employeeService.GetAllCompanies();
+                    return _mapper.Map<IEnumerable<EmployeeDto>>(items);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while listing all companies. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // GET api/<controller>/5
         [HttpGet("{employeeCode:string}")]
         public EmployeeDto Get(string employeeCode)
         {
-            var item = _employeeService.GetEmployeeByCode(employeeCode);
-            return _mapper.Map<EmployeeDto>(item);
+            try
+                {
+                    var item = _employeeService.GetEmployeeByCode(employeeCode);
+                    return _mapper.Map<EmployeeDto>(item);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while retrieving " + employeeCode + " employee. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody] Employee employee)
         {
-            if (employee == null)
-                return BadRequest();
-
-            var createdEmployee = await _employeeService.AddEmployee(employee);
-
-            return CreatedAtAction(nameof(Get),
-                new { employeeCode = createdEmployee.employeeCode }, createdEmployee);
+            try
+                {
+                    if (employee == null)
+                        return BadRequest();
+        
+                    var createdEmployee = await _employeeService.AddEmployee(employee);
+        
+                    return CreatedAtAction(nameof(Get),
+                        new { employeeCode = createdEmployee.employeeCode }, createdEmployee);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while creating a employee. " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // PUT api/<controller>/5
         [HttpPut"{id:int}"]
         public void Put(int id, [FromBody] Employee employee)
         {
-            if (id != employee.employeeCode)
-                return BadRequest("Employee code not found");
-
-            var employeeToUpdate = await _employeeService.GetEmployee(id);
-
-            if (employeeToUpdate == null)
-                return NotFound($"Employee code = {id} not found");
-
-            return await _employeeService.UpdateEmployee(employee);
+            try
+                {
+                    if (id != employee.employeeCode)
+                        return BadRequest("Employee code not found");
+        
+                    var employeeToUpdate = await _employeeService.GetEmployee(id);
+        
+                    if (employeeToUpdate == null)
+                        return NotFound($"Employee code = {id} not found");
+        
+                    return await _employeeService.UpdateEmployee(employee);
+                }
+            catch (Exception ex)
+            {
+                var msg = "An error occurred while updating employee id: + id + ". " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id:int}")]
         public void Delete(int id)
         {
-            var employeeToDelete = await _employeeService.GetEmployee(id);
-
-            if (employeeToDelete == null)
+            try
+                {
+                    var employeeToDelete = await _employeeService.GetEmployee(id);
+        
+                    if (employeeToDelete == null)
+                    {
+                        return NotFound($"Employee with Id = {id} not found");
+                    }
+        
+                    return await _employeeService.DeleteEmployee(id);
+                }
+                }
+            catch (Exception ex)
             {
-                return NotFound($"Employee with Id = {id} not found");
-            }
-
-            return await _employeeService.DeleteEmployee(id);
-        }
+                var msg = "An error occurred while deleting employee id: + id + ". " + DateTime.Now;
+                _logger.LogError(ex, msg);
+                throw new Exception(msg);
+            }    
     }
 }
