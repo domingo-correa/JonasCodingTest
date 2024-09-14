@@ -30,16 +30,15 @@ namespace DataAccessLayer.Repositories
                 t.SiteId.Equals(employee.SiteId) && t.EmployeeCode.Equals(employee.EmployeeCode))?.FirstOrDefault();
             if (itemRepo !=null)
             {
-                itemRepo.CompanyName = company.CompanyName;
-                itemRepo.AddressLine1 = company.AddressLine1;
-                itemRepo.AddressLine2 = company.AddressLine2;
-                itemRepo.AddressLine3 = company.AddressLine3;
-                itemRepo.Country = company.Country;
-                itemRepo.EquipmentCompanyCode = company.EquipmentCompanyCode;
-                itemRepo.FaxNumber = company.FaxNumber;
-                itemRepo.PhoneNumber = company.PhoneNumber;
-                itemRepo.PostalZipCode = company.PostalZipCode;
-                itemRepo.LastModified = company.LastModified;
+                itemRepo.CompanyName = employee.CompanyName;
+		itemRepo.EmployeeCode = employee.EmployeeCode,
+		itemRepo.EmployeeName = employee.EmployeeName,
+		itemRepo.CompanyName = employee.CompanyName,
+		itemRepo.OccupationName = employee.OccupationName,
+		itemRepo.EmployeeStatus = employee.EmployeeStatus,
+		itemRepo.EmailAddress = employee.EmailAddress,
+		itemRepo.PhoneNumber = employee.PhoneNumber,
+		itemRepo.LastModifiedDateTime = employee.LastModifiedDateTime
                 return _companyDbWrapper.Update(itemRepo);
             }
 
