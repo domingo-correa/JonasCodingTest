@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<EmployeeDto>> GetAll()
         {
-            var items = _employeeService.GetAllCompanies();
+            var items = _employeeService.GetAllEmployees();
             return _mapper.Map<IEnumerable<EmployeeDto>>(items);
         }
 
