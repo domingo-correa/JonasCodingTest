@@ -65,7 +65,6 @@ namespace WebApi.Controllers
                         return BadRequest();
         
                     var createdCompany = await _companyService.AddCompany(company);
-        
                     return CreatedAtAction(nameof(Get),
                         new { companyCode = createdCompany.companyCode }, createdCompany);
                 }
@@ -116,7 +115,7 @@ namespace WebApi.Controllers
         
                     return await _companyService.DeleteCompany(id);
                 }
-                }
+            }
             catch (Exception ex)
             {
                 var msg = "An error occurred while deleting company id: + id + ". " + DateTime.Now;
